@@ -1,4 +1,5 @@
-![banner](https://github.com/thirdweb-example/thirdweb-siwf/assets/17715009/9ec0129f-65ff-4016-a6a0-1e5a4efdad77)
+
+![Group 2 (1)](https://github.com/user-attachments/assets/1bb43b44-006d-4a1c-a41b-61eb718d3efd)
 
 # thirdweb Telegram Mini App Example
 
@@ -25,7 +26,7 @@ This project uses a powerful thirdweb feature called [Authentication Endpoints](
 
 Navigate to the [In-App Wallets](https://thirdweb.com/dashboard/connect/in-app-wallets) page on the dashboard and select your project from the dropdown. **This should be the same project your `clientId` is from.** Then click the **"Configuration" tab** and scroll down to "Custom Authentication Endpoint" and enable the toggle. You'll then see a field to enter your endpoint.
 
-<img width="1215" alt="Screenshot 2024-04-25 at 10 46 11 PM" src="https://github.com/thirdweb-example/thirdweb-siwf/assets/17715009/b05825c1-96b3-4e58-908e-c47002c4c02f">
+<img width="1196" alt="Screenshot 2024-08-02 at 2 24 00 AM" src="https://github.com/user-attachments/assets/7cd1201f-1928-4fbc-8b8c-62c9cbe92833">
 
 While testing the project locally, you'll need a publicly exposed endpoint to authenticate through. We recommend using a tool like [ngrok](https://ngrok.com/product/secure-tunnels) to create a public endpoint that forwards traffic to your local server. Forward your traffic to `http://localhost:3000` (where your app will run locally).
 
