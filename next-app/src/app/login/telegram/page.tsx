@@ -1,50 +1,37 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { useActiveAccount, useConnect } from "thirdweb/react";
-import { inAppWallet } from "thirdweb/wallets";
-import { sepolia } from "thirdweb/chains";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { client } from "../../client";
-import { Loader2 } from "lucide-react";
 
+export default function TelegramLogin({
+  searchParams,
+}: {
+  searchParams: { signature: string; message: string };
+}) {
+  const router = useRouter();
 
-export default function TelegramLogin({ searchParams }: { searchParams: { signature: string, message: string } }) {
-    const { connect } = useConnect();
-    const router = useRouter();
-
-    // This will connect to our wallet automatically on success, so we don't need to worry about the return data
-    useQuery({
-        queryKey: ["telegram-login"],
-        queryFn: async () => {
-            await connect(async () => {
-                const wallet = inAppWallet({
-                    smartAccount: {
-                        sponsorGas: true,
-                        chain: sepolia
-                    }
-                });
-                await wallet.connect({
-                    client,
-                    strategy: "auth_endpoint",
-                    payload: JSON.stringify({
-                        signature: searchParams.signature,
-                        message: searchParams.message,
-                    }),
-                    encryptionKey: process.env.NEXT_PUBLIC_AUTH_PHRASE as string,
-                });
-                return wallet;
-            });
-            
-            router.replace("/");
-            return true;
-        },
+  useEffect(() => {
+    const payload = JSON.stringify({
+      signature: searchParams.signature,
+      message: searchParams.message,
     });
 
-    return (
-        <div className="w-screen h-screen flex flex-col gap-2 items-center justify-center">
-            <Loader2 className="h-12 w-12 animate-spin text-white" />
-            Generating wallet...
-        </div>
-    )
+    // Store the payload server-side
+    fetch("/api/storePayload", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: payload,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Payload stored on the server:", data);
+        // Redirect to the Unity page with the username
+        router.push(`/unity?username=${data.username}`);
+      })
+      .catch((error) => console.error("Error storing payload:", error));
+  }, [searchParams.signature, searchParams.message, router]);
+
+  return null; // No UI for this page
 }
