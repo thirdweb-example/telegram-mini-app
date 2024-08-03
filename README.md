@@ -18,7 +18,7 @@ Open the Unity example project, it already has thirdweb's [Unity SDK](https://gi
 
 2. Set the client id you previously created in your `ThirdwebManager`
 
-3. Set your `ServerUrl` and `EncryptionKey` to your server url and your `NEXT_PUBLIC_AUTH_PHRASE` respectively.
+3. Set the `ServerUrl` and `EncryptionKey` in the scene's `TelegramIAWCustomAuth` to your server url and your `NEXT_PUBLIC_AUTH_PHRASE` respectively.
 
 4. Build
 
