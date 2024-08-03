@@ -87,6 +87,7 @@ public class TelegramIAWCustomAuth : MonoBehaviour
             {
                 Application.OpenURL("https://etherscan.io/address/" + address);
             });
+            Log("Connected!");
         }
         catch (System.Exception e)
         {

@@ -6,15 +6,11 @@
 [<img alt="thirdweb SDK" src="https://img.shields.io/npm/v/thirdweb?label=Thirdweb SDK&style=for-the-badge&logo=npm" height="30">](https://www.npmjs.com/package/thirdweb)
 [<img alt="Discord" src="https://img.shields.io/discord/834227967404146718.svg?color=7289da&label=discord&logo=discord&style=for-the-badge" height="30">](https://discord.gg/thirdweb)
 
+This branch contains `unity-app` - an example Unity WebGL project, and an altered implementation of the original `next-app`.
+
 ## Set up this project for Unity
 
 Follow the steps in the [original readme](https://github.com/thirdweb-example/telegram-mini-app/blob/main/README.md).
-
-## What now?
-
-```bash
-cd unity-app
-```
 
 Open the Unity example project, it already has thirdweb's [Unity SDK](https://github.com/thirdweb-dev/unity-sdk) imported.
 
@@ -26,7 +22,7 @@ Open the Unity example project, it already has thirdweb's [Unity SDK](https://gi
 
 4. Build
 
-5. Copy the Build folder's outputs to this repo's `root/next-app/public/unity-webgl`.
+5. Copy the Build folder's outputs to this repo's `root/next-app/public/unity-webgl`. (It should have Build, lib, TemplateData and index.html).
 
 That's it, start the bot and you should see Unity load and after a few seconds, your wallet will be connected.
 
