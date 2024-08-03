@@ -43,6 +43,8 @@ var connection = new WalletConnection(
 var address = await ThirdwebManager.Instance.SDK.Wallet.Connect(connection);
 ```
 
+![5e7b2d6120c217a46b0b73e99c6cdeb2](https://github.com/user-attachments/assets/caf101be-231e-49b0-acc1-4e499d6c912a)
+
 ## Support
 
 For help or feedback, please [visit our support site](https://thirdweb.com/support)
