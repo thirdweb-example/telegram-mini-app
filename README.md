@@ -10,7 +10,7 @@ This branch contains `unity-app` - an example Unity WebGL project, and an altere
 
 ## Set up this project for Unity
 
-Follow the steps in the [original readme](https://github.com/thirdweb-example/telegram-mini-app/blob/main/README.md).
+Stay on this branch and follow the steps in the [original readme](https://github.com/thirdweb-example/telegram-mini-app/blob/main/README.md) to get setup.
 
 Open the Unity example project, it already has thirdweb's [Unity SDK](https://github.com/thirdweb-dev/unity-sdk) imported.
 
