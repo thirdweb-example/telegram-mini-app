@@ -24,11 +24,11 @@ Open the Unity example project, it already has thirdweb's [Unity SDK](https://gi
 
 5. Copy the Build folder's outputs to this repo's `root/next-app/public/unity-webgl`. (It should have Build, lib, TemplateData and index.html).
 
-That's it, start the bot and you should see Unity load and after a few seconds, your wallet will be connected.
+That's it, start the bot and you should see Unity load and after a few seconds, your wallet will be connected (default is Smart Wallet on Arbitrum Sepolia).
 
 ## How it works
 
-As opposed to the original project, the callback from the telegram bot starting now stores the auth token for that user in memory temporarily (for production, use a more scalable system).
+As opposed to the original project, the callback from the telegram bot starting passes the payload to unity through query params for simplicity.
 
 A few seconds later Unity will query it and it'll be consumed.
 
@@ -38,8 +38,9 @@ Note that you must run the Unity build from Telegram for it to work properly. Ma
 
 ```csharp
 var connection = new WalletConnection(
-    provider: WalletProvider.InAppWallet,
-    chainId: 1,
+    provider: WalletProvider.SmartWallet,
+    chainId: ThirdwebManager.Instance.SDK.Session.ChainId,
+    personalWallet: WalletProvider.InAppWallet,
     authOptions: new AuthOptions(authProvider: AuthProvider.AuthEndpoint, jwtOrPayload: JsonConvert.SerializeObject(payload), encryptionKey: EncryptionKey)
 );
 var address = await ThirdwebManager.Instance.SDK.Wallet.Connect(connection);

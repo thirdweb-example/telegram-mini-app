@@ -23,51 +23,14 @@ public class TelegramIAWCustomAuth : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FetchPayload());
         Log("Waiting for payload...");
-    }
-
-    private IEnumerator FetchPayload()
-    {
-        string username = GetUsernameFromUrl();
-        if (string.IsNullOrEmpty(username))
-        {
-            Log("No username found in URL");
-            yield break;
-        }
-
-        using UnityWebRequest request = UnityWebRequest.Get(ServerUrl + $"/api/storePayload?username={username}");
-        yield return request.SendWebRequest();
-
-        if (request.result != UnityWebRequest.Result.Success)
-        {
-            Log("Error fetching payload: " + request.error);
-            yield break;
-        }
-
-        var result = JsonConvert.DeserializeObject<Dictionary<string, string>>(request.downloadHandler.text);
-        if (result.ContainsKey("payload"))
-        {
-            var payload = result["payload"];
-            ReceivePayload(payload);
-        }
-        else
-        {
-            Log("No payload found");
-        }
-    }
-
-    private string GetUsernameFromUrl()
-    {
         var url = Application.absoluteURL;
         var uri = new System.Uri(url);
         var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
-        return query.Get("username");
-    }
-
-    public void ReceivePayload(string payload)
-    {
-        var payloadObject = JsonConvert.DeserializeObject<Payload>(payload);
+        var payload = query.Get("payload");
+        var payloadDecoded = System.Web.HttpUtility.UrlDecode(payload);
+        var payloadObject = JsonConvert.DeserializeObject<Payload>(payloadDecoded);
+        Log($"Payload: {JsonConvert.SerializeObject(payloadObject)}");
         ProcessPayload(payloadObject);
     }
 
