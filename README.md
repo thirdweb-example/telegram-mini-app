@@ -6,7 +6,7 @@
 [<img alt="thirdweb SDK" src="https://img.shields.io/npm/v/thirdweb?label=Thirdweb SDK&style=for-the-badge&logo=npm" height="30">](https://www.npmjs.com/package/thirdweb)
 [<img alt="Discord" src="https://img.shields.io/discord/834227967404146718.svg?color=7289da&label=discord&logo=discord&style=for-the-badge" height="30">](https://discord.gg/thirdweb)
 
-This branch contains `unity-app` - an example Unity WebGL project, and an altered implementation of the original `next-app`.
+This branch contains `unity-app` - an example Unity WebGL project (2022.3+), and an altered implementation of the original `next-app`.
 
 ## Set up this project for Unity
 
@@ -28,11 +28,13 @@ That's it, start the bot and you should see Unity load and after a few seconds, 
 
 ## How it works
 
-As opposed to the original project, the callback from the telegram bot starting now stores the auth token for that user in local storage temporarily.
+As opposed to the original project, the callback from the telegram bot starting now stores the auth token for that user in memory temporarily (for production, use a more scalable system).
 
 A few seconds later Unity will query it and it'll be consumed.
 
 From there, you simply use the Unity SDK's `InAppWallet` + `AuthEndpoint` login!
+
+Note that you must run the Unity build from Telegram for it to work properly. Make sure you use thirdweb's WebGL Template.
 
 ```csharp
 var connection = new WalletConnection(
