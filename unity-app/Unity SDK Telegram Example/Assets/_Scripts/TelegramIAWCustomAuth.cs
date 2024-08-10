@@ -74,8 +74,9 @@ public class TelegramIAWCustomAuth : MonoBehaviour
     private async void ProcessPayload(Payload payload)
     {
         var connection = new WalletConnection(
-            provider: WalletProvider.InAppWallet,
-            chainId: 1,
+            provider: WalletProvider.SmartWallet,
+            chainId: ThirdwebManager.Instance.SDK.Session.ChainId,
+            personalWallet: WalletProvider.InAppWallet,
             authOptions: new AuthOptions(authProvider: AuthProvider.AuthEndpoint, jwtOrPayload: JsonConvert.SerializeObject(payload), encryptionKey: EncryptionKey)
         );
         Log("Connecting wallet...");
@@ -85,7 +86,7 @@ public class TelegramIAWCustomAuth : MonoBehaviour
             WalletButton.GetComponentInChildren<TMP_Text>().text = address.ShortenAddress();
             WalletButton.onClick.AddListener(() =>
             {
-                Application.OpenURL("https://etherscan.io/address/" + address);
+                Application.OpenURL("https://sepolia.arbiscan.io/address/" + address);
             });
             Log("Connected!");
         }
