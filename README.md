@@ -30,11 +30,9 @@ That's it, start the bot and you should see Unity load and after a few seconds, 
 
 As opposed to the original project, the callback from the telegram bot starting passes the payload to unity through query params for simplicity.
 
-A few seconds later Unity will query it and it'll be consumed.
-
 From there, you simply use the Unity SDK's `InAppWallet` + `AuthEndpoint` login!
 
-Note that you must run the Unity build from Telegram for it to work properly. Make sure you use thirdweb's WebGL Template.
+Note that you must run the Unity build from Telegram for it to work properly.
 
 ```csharp
 var connection = new WalletConnection(
