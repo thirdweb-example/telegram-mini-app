@@ -75,7 +75,7 @@ export function createServerManager(server: Server, options: { host: string, por
   let handle: undefined | ReturnType<typeof serve>
   return {
     start() {
-      return new Promise<{ url: string } >((resolve) => {
+      return new Promise<{ url: string }>((resolve) => {
         handle = serve(
           {
             fetch: server.fetch,
