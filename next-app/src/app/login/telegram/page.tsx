@@ -1,11 +1,10 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useActiveAccount, useConnect } from "thirdweb/react";
+import { useConnect } from "thirdweb/react";
 import { inAppWallet } from "thirdweb/wallets";
-import { sepolia } from "thirdweb/chains";
 import { useRouter } from "next/navigation";
-import { client } from "../../client";
+import { client, chain } from "../../constants";
 import { Loader2 } from "lucide-react";
 
 
@@ -21,7 +20,7 @@ export default function TelegramLogin({ searchParams }: { searchParams: { signat
                 const wallet = inAppWallet({
                     smartAccount: {
                         sponsorGas: true,
-                        chain: sepolia
+                        chain: chain
                     }
                 });
                 await wallet.connect({
