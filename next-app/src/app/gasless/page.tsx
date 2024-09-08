@@ -50,7 +50,7 @@ const GaslessHome: React.FC = () => {
 									You own {ownedNfts?.[0]?.quantityOwned.toString() || "0"}{" "}
 									Kittens
 								</p>
-								<TransactionButton
+								<TransactionButton payModal={false}
 									transaction={() =>
 										claimTo({
 											contract: editionDropContract,
