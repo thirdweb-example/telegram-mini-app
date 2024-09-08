@@ -72,7 +72,11 @@ function Menu() {
 				href="/gasless"
 				description="Execute transactions without requiring users to hold ETH."
 			/>
-
+      <MenuItem
+				title="Pay"
+				href="/pay"
+				description="Allow users to purchase NFT's using fiat"
+			/>
 		</div>
 	);
 }
