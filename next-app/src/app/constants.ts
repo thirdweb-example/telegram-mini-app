@@ -1,6 +1,6 @@
 import { createThirdwebClient, getContract } from "thirdweb";
 import { baseSepolia, defineChain } from "thirdweb/chains";
-import { SmartWalletOptions } from "thirdweb/wallets";
+import { inAppWallet, SmartWalletOptions } from "thirdweb/wallets";
 
 // Replace this with your client ID string
 // refer to https://portal.thirdweb.com/typescript/v5/client on how to get a client ID
@@ -15,6 +15,14 @@ export const client = createThirdwebClient({
 });
 
 export const chain = baseSepolia;
+
+export const wallet = inAppWallet({
+	smartAccount: {
+		sponsorGas: true,
+		chain: chain
+	}
+});
+
 export const tokenDropAddress = "0xd64A548A82c190083707CBEFD26958E5e6551D18";
 export const editionDropAddress = "0x638263e3eAa3917a53630e61B1fBa685308024fa";
 export const editionDropTokenId = 0n;

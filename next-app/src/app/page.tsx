@@ -4,7 +4,7 @@ import { useActiveAccount } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { shortenAddress } from "thirdweb/utils";
 import { Button } from "@headlessui/react";
-import { client } from "./constants";
+import { client, wallet } from "./constants";
 import { AutoConnect } from "thirdweb/react";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ export default function Home() {
     <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
       <div className="py-20">
         <Header />
-        <AutoConnect client={client} />
+        <AutoConnect client={client} wallets={[wallet]}/>
         <div className="flex justify-center mb-20">
           {account ? 
             (

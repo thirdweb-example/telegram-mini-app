@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useConnect } from "thirdweb/react";
 import { inAppWallet } from "thirdweb/wallets";
 import { useRouter } from "next/navigation";
-import { client, chain } from "../../constants";
+import { client, chain , wallet} from "../../constants";
 import { Loader2 } from "lucide-react";
 
 
@@ -17,12 +17,7 @@ export default function TelegramLogin({ searchParams }: { searchParams: { signat
         queryKey: ["telegram-login"],
         queryFn: async () => {
             await connect(async () => {
-                const wallet = inAppWallet({
-                    smartAccount: {
-                        sponsorGas: true,
-                        chain: chain
-                    }
-                });
+               
                 await wallet.connect({
                     client,
                     strategy: "auth_endpoint",
