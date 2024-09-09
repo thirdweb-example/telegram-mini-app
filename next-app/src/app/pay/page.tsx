@@ -34,13 +34,6 @@ const PayHome: React.FC = () => {
 					<div className="w-full mt-24">Loading...</div>
 				) : (
 					<>
-						{nft ? (
-							<MediaRenderer
-								client={client}
-								src={nft.metadata.image}
-								style={{ width: "100%", marginTop: "10px" }}
-							/>
-						) : null}
 						{smartAccount ? (
 							<>
 								<p className="font-semibold text-center mb-2">
