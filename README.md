@@ -89,12 +89,7 @@ When the user clicks their unique login link, they're first sent to `/login/tele
 const { connect } = useConnect();
 
 await connect(async () => {
-    const wallet = inAppWallet({
-        smartAccount: {
-            sponsorGas: true,
-            chain: sepolia
-        }
-    });
+    
     await wallet.connect({
         client,
         strategy: "auth_endpoint",
