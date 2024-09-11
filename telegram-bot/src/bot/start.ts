@@ -3,7 +3,7 @@ import type { Context } from '#root/bot/context.js'
 import { privateKeyToAccount } from 'thirdweb/wallets'
 import { createThirdwebClient } from 'thirdweb'
 import { config } from 'dotenv' 
-config()
+config({ path: '.env.local' })
 
 const composer = new Composer<Context>()
 
