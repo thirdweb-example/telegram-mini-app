@@ -145,3 +145,39 @@ function convertKeysToCamelCase<T>(obj: T): KeysToCamelCase<T> {
   }
   return result
 }
+
+// Add this new function at the end of the file
+export default async function handler(req: any, res: any) {
+  try {
+    process.loadEnvFile()
+  } catch {
+    // No .env file found
+  }
+
+  // @ts-expect-error create config from environment variables
+  const config = createConfig(convertKeysToCamelCase(process.env))
+
+  if (config.isWebhookMode) {
+    const logger = createLogger(config)
+    const bot = createBot(config.botToken, { config, logger })
+    await bot.init()
+    
+    const server = createServer({ bot, config, logger })
+    await server.fetch(req)
+    
+    res.status(200).send('OK')
+  } else {
+    res.status(400).send('Bot is not configured for webhook mode')
+  }
+}
+
+// Keep the existing code for running the bot locally
+if (require.main === module) {
+  (async () => {
+    try {
+      // ... (keep the existing try-catch block)
+    } catch (error) {
+      // ... (keep the existing error handling)
+    }
+  })()
+}
