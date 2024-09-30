@@ -83,32 +83,6 @@ async function startWebhook(config: WebhookConfig) {
   })
 }
 
-try {
-  try {
-    process.loadEnvFile()
-  }
-  catch {
-    // No .env file found
-  }
-
-  // @ts-expect-error create config from environment variables
-  const config = createConfig(convertKeysToCamelCase(process.env))
-
-  if (config.isWebhookMode)
-    await startWebhook(config)
-  else if (config.isPollingMode)
-    await startPolling(config)
-}
-catch (error) {
-  if (error instanceof ValiError) {
-    console.error('Config parsing error', flatten(error.issues))
-  }
-  else {
-    console.error(error)
-  }
-  process.exit(1)
-}
-
 // Utils
 
 function onShutdown(cleanUp: () => Promise<void>) {
@@ -146,7 +120,35 @@ function convertKeysToCamelCase<T>(obj: T): KeysToCamelCase<T> {
   return result
 }
 
-// Add this new function at the end of the file
+async function startBot() {
+  try {
+    try {
+      process.loadEnvFile()
+    }
+    catch {
+      // No .env file found
+    }
+
+    // @ts-expect-error create config from environment variables
+    const config = createConfig(convertKeysToCamelCase(process.env))
+
+    if (config.isWebhookMode)
+      await startWebhook(config)
+    else if (config.isPollingMode)
+      await startPolling(config)
+  }
+  catch (error) {
+    if (error instanceof ValiError) {
+      console.error('Config parsing error', flatten(error.issues))
+    }
+    else {
+      console.error(error)
+    }
+    process.exit(1)
+  }
+}
+
+// Handler for serverless environments
 export default async function handler(req: any, res: any) {
   try {
     process.loadEnvFile()
@@ -171,13 +173,7 @@ export default async function handler(req: any, res: any) {
   }
 }
 
-// Keep the existing code for running the bot locally
-if (require.main === module) {
-  (async () => {
-    try {
-      // ... (keep the existing try-catch block)
-    } catch (error) {
-      // ... (keep the existing error handling)
-    }
-  })()
+// Check if this file is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  startBot()
 }
