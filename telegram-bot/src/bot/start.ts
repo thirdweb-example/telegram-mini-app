@@ -15,7 +15,7 @@ const adminAccount = privateKeyToAccount({
 })
 
 feature.command('start', async (ctx) => {
-  const username = ctx.from?.username;
+  const username = ctx.from?.id+"";
   const expiration = Date.now() + 600_000; // valid for 10 minutes
   const message = JSON.stringify({
     username,
