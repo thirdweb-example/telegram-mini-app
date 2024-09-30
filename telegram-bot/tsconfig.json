@@ -4,14 +4,9 @@
     "rootDir": ".",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "paths": {
-      "#root/*": [
-        "./src/*"
-      ]
-    },
     "strict": true,
     "noEmit": false,
-    "outDir": "build",
+    "outDir": "./build",
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

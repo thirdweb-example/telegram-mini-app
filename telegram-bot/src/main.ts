@@ -4,10 +4,10 @@ import process from 'node:process'
 import { ValiError, flatten } from 'valibot'
 import { type RunnerHandle, run } from '@grammyjs/runner'
 import { createLogger } from './logger.js'
-import { createBot } from '#root/bot/index.js'
-import type { PollingConfig, WebhookConfig } from '#root/config.js'
-import { createConfig } from '#root/config.js'
-import { createServer, createServerManager } from '#root/server/index.js'
+import { createBot } from './bot/index.js'
+import type { PollingConfig, WebhookConfig } from './config.js'
+import { createConfig } from './config.js'
+import { createServer, createServerManager } from './server/index.js'
 
 async function startPolling(config: PollingConfig) {
   const logger = createLogger(config)

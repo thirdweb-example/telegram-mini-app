@@ -2,10 +2,10 @@ import { parseMode } from '@grammyjs/parse-mode'
 import type { BotConfig, StorageAdapter } from 'grammy'
 import { Bot as TelegramBot } from 'grammy'
 import { startFeature } from './start.js'
-import type { Context, SessionData } from '#root/bot/context.js'
-import { createContextConstructor } from '#root/bot/context.js'
-import type { Logger } from '#root/logger.js'
-import type { Config } from '#root/config.js'
+import type { Context, SessionData } from './context.js'
+import { createContextConstructor } from './context.js'
+import type { Logger } from '../logger.js'
+import type { Config } from '../config.js'
 
 interface Dependencies {
   config: Config

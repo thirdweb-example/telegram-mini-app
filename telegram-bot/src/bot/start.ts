@@ -1,5 +1,5 @@
 import { Composer, InlineKeyboard } from 'grammy'
-import type { Context } from '#root/bot/context.js'
+import type { Context } from './context.js'
 import { privateKeyToAccount } from 'thirdweb/wallets'
 import { createThirdwebClient } from 'thirdweb'
 import { config } from 'dotenv' 
