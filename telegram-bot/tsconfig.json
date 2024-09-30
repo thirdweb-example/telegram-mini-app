@@ -10,7 +10,7 @@
       ]
     },
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
     "outDir": "build",
     "sourceMap": true,
     "esModuleInterop": true,

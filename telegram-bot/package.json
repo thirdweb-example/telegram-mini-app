@@ -15,10 +15,10 @@
     "lint": "eslint .",
     "format": "eslint . --fix",
     "typecheck": "tsc",
-    "build": "tsc --noEmit false",
+    "build": "tsc && cp package.json build/ && cp vercel.json build/",
     "dev": "tsc-watch --onSuccess \"tsx ./src/main.ts\"",
-    "start": "tsc && tsx ./src/main.ts",
-    "start:force": "tsx ./src/main.ts"
+    "start": "node build/src/main.js",
+    "start:force": "node build/src/main.js"
   },
   "dependencies": {
     "@grammyjs/auto-chat-action": "0.1.1",
