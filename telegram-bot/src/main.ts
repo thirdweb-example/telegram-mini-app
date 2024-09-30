@@ -177,5 +177,8 @@ export default async function handler(req: any, res: any) {
   }
 }
 
-startBot()
+// Check if this file is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  startBot()
+}
 
