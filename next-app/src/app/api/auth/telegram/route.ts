@@ -1,4 +1,3 @@
-
 import { privateKeyToAccount } from "thirdweb/wallets";
 import { verifySignature } from "thirdweb/auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +8,25 @@ const adminAccount = privateKeyToAccount({
     client,
 });
 
-export async function verifyTelegram(signature: string, message: string) {
+export async function POST(req: NextRequest) {
+    const { payload } = await req.json();
+    const { signature, message } = JSON.parse(payload);
+
+    const userId = await verifyTelegram(signature, message);
+
+    if (!userId) {
+        return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
+    }
+
+    return NextResponse.json({ userId });
+}
+
+export async function GET(req: NextRequest) {
+    // Logic for GET method
+}
+
+// Remove the 'export' keyword from this function
+async function verifyTelegram(signature: string, message: string) {
     const metadata = JSON.parse(message);
     
     if (!metadata.expiration || metadata.expiration < Date.now()) {
@@ -32,17 +49,4 @@ export async function verifyTelegram(signature: string, message: string) {
     }
 
     return metadata.username;
-}
-
-export async function POST(request: NextRequest) {
-    const { payload } = await request.json();
-    const { signature, message } = JSON.parse(payload);
-
-    const userId = await verifyTelegram(signature, message);
-
-    if (!userId) {
-        return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
-    }
-
-    return NextResponse.json({ userId });
 }
