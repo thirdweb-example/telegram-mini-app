@@ -168,8 +168,12 @@ export default async function handler(req: any, res: any) {
     await server.fetch(req)
     
     res.status(200).send('OK')
+  } else if (config.isPollingMode) {
+    // Start the bot in polling mode
+    await startPolling(config)
+    res.status(200).send('Bot started in polling mode')
   } else {
-    res.status(400).send('Bot is not configured for webhook mode')
+    res.status(400).send('Invalid bot configuration')
   }
 }
 
