@@ -1,4 +1,4 @@
-import type { Logger } from '#root/logger.js'
+import type { Logger } from '../logger.js'
 
 export interface Env {
   Variables: {
