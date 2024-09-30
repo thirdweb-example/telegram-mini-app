@@ -8,6 +8,7 @@ import { createBot } from './bot/index.js'
 import type { PollingConfig, WebhookConfig } from './config.js'
 import { createConfig } from './config.js'
 import { createServer, createServerManager } from './server/index.js'
+import type { Bot } from './bot/index.js'
 
 async function startPolling(config: PollingConfig) {
   const logger = createLogger(config)
@@ -149,6 +150,8 @@ async function startBot() {
 }
 
 // Handler for serverless environments
+let botInstance: Bot | null = null;
+
 export default async function handler(req: any, res: any) {
   try {
     process.loadEnvFile()
@@ -169,9 +172,16 @@ export default async function handler(req: any, res: any) {
     
     res.status(200).send('OK')
   } else if (config.isPollingMode) {
-    // Start the bot in polling mode
-    await startPolling(config)
-    res.status(200).send('Bot started in polling mode')
+    if (!botInstance) {
+      const logger = createLogger(config)
+      botInstance = createBot(config.botToken, { config, logger })
+      await botInstance.init()
+      // Start the bot in polling mode without awaiting
+      startPolling(config).catch(error => {
+        console.error('Error in polling mode:', error)
+      })
+    }
+    res.status(200).send('Bot is running in polling mode')
   } else {
     res.status(400).send('Invalid bot configuration')
   }
