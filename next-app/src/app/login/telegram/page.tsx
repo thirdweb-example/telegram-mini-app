@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useConnect } from "thirdweb/react";
@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { client, wallet } from "../../constants";
 import { Loader2 } from "lucide-react";
 
-export default function TelegramLogin() {
+function TelegramLoginContent() {
     const searchParams = useSearchParams();
     const { connect } = useConnect();
     const router = useRouter();
@@ -18,14 +18,14 @@ export default function TelegramLogin() {
         const signature = searchParams.get('signature') || '';
         const message = searchParams.get('message') || '';
         setParams({ signature, message });
-        alert('SearchParams: ' + signature + ' ' + message);
+        console.log('SearchParams:', { signature, message });
     }, [searchParams]);
 
     useQuery({
         queryKey: ["telegram-login", params.signature, params.message],
         queryFn: async () => {
             if (!params.signature || !params.message) {
-                alert('Missing signature or message');
+                console.error('Missing signature or message');
                 return false;
             }
             try {
@@ -56,5 +56,13 @@ export default function TelegramLogin() {
             <Loader2 className="h-12 w-12 animate-spin text-white" />
             Generating wallet...
         </div>
+    );
+}
+
+export default function TelegramLogin() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <TelegramLoginContent />
+        </Suspense>
     );
 }
