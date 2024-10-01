@@ -56,7 +56,7 @@ Once you've implemented this flow into your own app, there are a few changes you
 
 Remember to go to your project in the [In-App Wallets](https://thirdweb.com/dashboard/connect/in-app-wallets) configuration tab and update the auth endpoint to be `[YOUR PRODUCTION URL]/api/auth/telegram` which is the URL to the Next.js app. In this case, do include `https://` in the URL.
 
-If deploying to Vercel, a `vercel.json` file is included.
+The `/telegram-bot` is a simple Node.js project that is using Telegram polling (not webhooks) and thus cannot run in a serverless environment like Vercel. If you want to run this in a serverless environment, you'll need to switch to using webhooks and make the necessary changes to `index.ts` to handle the webhook events.
 
 Now, you're ready to deploy your app and Telegram bot to production!
 
