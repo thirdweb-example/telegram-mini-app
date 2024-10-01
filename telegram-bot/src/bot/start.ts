@@ -26,7 +26,7 @@ feature.command('start', async (ctx) => {
   const authCode = await adminAccount.signMessage({
     message,
   });
-
+  console.log('Full URL:', `${process.env.FRONTEND_APP_ORIGIN}/login/telegram?signature=${authCode}&message=${encodeURI(message)}`);
   const keyboard = new InlineKeyboard().webApp('Launch App', `${process.env.FRONTEND_APP_ORIGIN}/login/telegram?signature=${authCode}&message=${encodeURI(message)}`);
   return ctx.reply('Pick an app to launch.', { reply_markup: keyboard })
 })
