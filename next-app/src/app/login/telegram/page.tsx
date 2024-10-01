@@ -1,39 +1,54 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useConnect } from "thirdweb/react";
-import { inAppWallet } from "thirdweb/wallets";
 import { useRouter } from "next/navigation";
-import { client, chain , wallet} from "../../constants";
+import { client, wallet } from "../../constants";
 import { Loader2 } from "lucide-react";
 
-
-export default function TelegramLogin({ searchParams }: { searchParams: { signature: string, message: string } }) {
+export default function TelegramLogin() {
+    const searchParams = useSearchParams();
     const { connect } = useConnect();
     const router = useRouter();
+    const [params, setParams] = useState({ signature: '', message: '' });
 
-    // This will connect to our wallet automatically on success, so we don't need to worry about the return data
+    useEffect(() => {
+        const signature = searchParams.get('signature') || '';
+        const message = searchParams.get('message') || '';
+        setParams({ signature, message });
+        alert('SearchParams: ' + signature + ' ' + message);
+    }, [searchParams]);
+
     useQuery({
-        queryKey: ["telegram-login"],
+        queryKey: ["telegram-login", params.signature, params.message],
         queryFn: async () => {
-            await connect(async () => {
-                alert('searchParams: ' + JSON.stringify(searchParams));
-               
-                await wallet.connect({
-                    client,
-                    strategy: "auth_endpoint",
-                    payload: JSON.stringify({
-                        signature: searchParams.signature,
-                        message: searchParams.message,
-                    }),
-                    encryptionKey: process.env.NEXT_PUBLIC_AUTH_PHRASE as string,
+            if (!params.signature || !params.message) {
+                alert('Missing signature or message');
+                return false;
+            }
+            try {
+                await connect(async () => {
+                    await wallet.connect({
+                        client,
+                        strategy: "auth_endpoint",
+                        payload: JSON.stringify({
+                            signature: params.signature,
+                            message: params.message,
+                        }),
+                        encryptionKey: process.env.NEXT_PUBLIC_AUTH_PHRASE as string,
+                    });
+                    return wallet;
                 });
-                return wallet;
-            });
-            
-            router.replace("/");
-            return true;
+                router.replace("/");
+                return true;
+            } catch (error) {
+                console.error('Connection error:', error);
+                return false;
+            }
         },
+        enabled: !!params.signature && !!params.message,
     });
 
     return (
@@ -41,5 +56,5 @@ export default function TelegramLogin({ searchParams }: { searchParams: { signat
             <Loader2 className="h-12 w-12 animate-spin text-white" />
             Generating wallet...
         </div>
-    )
+    );
 }
