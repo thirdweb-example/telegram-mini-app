@@ -17,6 +17,7 @@ export default function TelegramLogin({ searchParams }: { searchParams: { signat
         queryKey: ["telegram-login"],
         queryFn: async () => {
             await connect(async () => {
+                console.log('searchParams', searchParams);
                
                 await wallet.connect({
                     client,
