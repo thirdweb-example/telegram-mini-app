@@ -15,7 +15,7 @@ const adminAccount = privateKeyToAccount({
 })
 
 feature.command('start', async (ctx) => {
-  const username = ctx.from?.username;
+  const username = ctx.from?.id+"";
   const expiration = Date.now() + 600_000; // valid for 10 minutes
   const message = JSON.stringify({
     username,
@@ -24,7 +24,7 @@ feature.command('start', async (ctx) => {
   const authCode = await adminAccount.signMessage({
     message,
   });
-  const keyboard = new InlineKeyboard().webApp('Launch App', `${process.env.FRONTEND_APP_ORIGIN}/login/telegram?signature=${authCode}&message=${encodeURI(message)}`);
+  const keyboard = new InlineKeyboard().webApp('thirdweb App', `${process.env.FRONTEND_APP_ORIGIN}/login/telegram?signature=${authCode}&message=${encodeURI(message)}`);
   return ctx.reply('Pick an app to launch.', { reply_markup: keyboard })
 })
 

@@ -48,13 +48,15 @@ Now, run `pnpm dev` in both the `/next-app` and `/telegram-bot` directories. Thi
 
 You should see the app at http://localhost:3000. Try messaging the `/start` command to the bot you configured with the Bot Father in Telegram.
 
-When you press "Launch App", your mini app should open and a wallet should be generated for you.
+When you press "thirdweb App", your mini app should open and a wallet should be generated for you.
 
 ### Going to production
 
 Once you've implemented this flow into your own app, there are a few changes you'll need to make to go to production.
 
-Remember to go to your project in the [In-App Wallets](https://thirdweb.com/dashboard/connect/in-app-wallets) configuration tab and update the auth endpoint to be `[YOUR PRODUCTION URL]/api/auth/telegram`. In this case, do include `https://` in the URL.
+Remember to go to your project in the [In-App Wallets](https://thirdweb.com/dashboard/connect/in-app-wallets) configuration tab and update the auth endpoint to be `[YOUR PRODUCTION URL]/api/auth/telegram` which is the URL to the Next.js app. In this case, do include `https://` in the URL.
+
+If deploying to Vercel, a `vercel.json` file is included.
 
 Now, you're ready to deploy your app and Telegram bot to production!
 
