@@ -64,7 +64,7 @@ Now, you're ready to deploy your app and Telegram bot to production!
 
 All the logic for this example can be found in `telegram-bot/src/bot/start.ts`, `/next-app/src/app/api/auth/telegram/route.ts`, and `/next-app/src/app/login/telegran/page.tsx`.
 
-When a user requests a new link to the app, we generate a unique signature for them based on their username and the current time. This signature can then be verified in your Next.js app's backend. This is how the user will authenticate their telegram profile, no password or extra login steps required!
+When a user requests a new link to the app, we generate a unique signature for them based on their telegram ID and the current time. This signature can then be verified in your Next.js app's backend. This is how the user will authenticate their telegram profile, no password or extra login steps required!
 
 ```ts
 const adminAccount = privateKeyToAccount({
@@ -74,7 +74,7 @@ const adminAccount = privateKeyToAccount({
 
 // ...
 
-const username = ctx.from?.username;
+const username = ctx.from?.id+"";
 const expiration = Date.now() + 600_000; // valid for 10 minutes
 const message = JSON.stringify({
     username,
