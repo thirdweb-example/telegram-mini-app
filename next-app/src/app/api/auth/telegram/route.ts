@@ -9,7 +9,9 @@ const adminAccount = privateKeyToAccount({
 });
 
 export async function POST(req: NextRequest) {
+    console.log('req', req);
     const { payload } = await req.json();
+    console.log('payload', payload);
     const { signature, message } = JSON.parse(payload);
 
     const userId = await verifyTelegram(signature, message);
