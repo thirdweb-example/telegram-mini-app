@@ -8,6 +8,10 @@
 
 This branch contains `unity-app` - an example Unity WebGL project (2022.3+), and an altered implementation of the original `next-app`.
 
+## This example has been supeseded by the example below using thirdweb's Unity SDK v5
+
+Visit https://github.com/thirdweb-example/unity-telegram to build with v5.
+
 ## Set up this project for Unity
 
 Stay on this branch and follow the steps in the [original readme](https://github.com/thirdweb-example/telegram-mini-app/blob/main/README.md) to get setup.
