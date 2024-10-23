@@ -8,6 +8,9 @@
 
 Authenticate your users and generate a smart wallet without ever leaving Telegram. This example app showcases thirdweb's custom authentication and smart accounts from within a Telegram mini app.
 
+> [!IMPORTANT]  
+> Due to Google's security policies, Google OAuth does not work in Telegram mini-apps.
+
 ## Getting Started
 
 > This project assumes some basic knowledge of TypeScript, Next.js App Router, and [Connect SDK](https://portal.thirdweb.com/typescript/v5).
